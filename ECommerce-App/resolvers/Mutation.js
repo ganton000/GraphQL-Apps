@@ -129,7 +129,7 @@ exports.Mutation = {
 	updateProduct: (parent, {id, input}, { db }) => {
 
 			//get index in array that needs to be updated
-			const index = db.products.findIndex(product => product.id === id);
+			const index = db.products.findIndex(product => product.id === id)
 
 			//if index does not exist
 			if (index === -1) return null;
