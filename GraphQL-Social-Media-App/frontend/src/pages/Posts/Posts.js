@@ -27,9 +27,12 @@ export default function Posts() {
 
   const { posts } = data
 
+  const reversedPosts = [...posts].reverse()
+
   return (<div>
-    {posts.map(({id, title, content, createdAt, user}) => (
+    {reversedPosts.map(({id, title, content, createdAt, user}) => (
             <Post
+            key={id}
             id={id}
             title={title}
             content={content}

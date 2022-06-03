@@ -1,6 +1,31 @@
 import React from "react";
 import "./Post.css";
+import { gql, useMutation } from "@apollo/client";
 
+const PUBLISH_POST = gql`
+mutation PublishPost($postId: ID!) {
+  postPublish(postId: $postId) {
+    userErrors{
+      message
+    }
+    post {
+      title
+    }
+  }
+}
+`
+const UNPUBLISH_POST = gql`
+mutation UnpublishPost($postId: ID!) {
+  postUnpublish(postId: $postId) {
+    userErrors{
+      message
+    }
+    post {
+      title
+    }
+  }
+}
+`
 
 export default function Post({
   title,
@@ -12,19 +37,33 @@ export default function Post({
   isMyProfile,
 }) {
 
+  const [publishPost, {_, __}] = useMutation(PUBLISH_POST);
+
+  const [unpublishPost, {data, loading}] = useMutation(UNPUBLISH_POST);
+
   const formatedDate = new Date(Number(date));
+
   return (
     <div
       className="Post"
       style={published === false ? { backgroundColor: "hotpink" } : {}}
     >
       {isMyProfile && published === false && (
-        <p className="Post__publish" onClick={() => {}}>
+        <p className="Post__publish" onClick={() => {
+          publishPost({
+            variables: { postId: id }
+          })
+        }}
+        >
           publish
         </p>
       )}
       {isMyProfile && published === true && (
-        <p className="Post__publish" onClick={() => {}}>
+        <p className="Post__publish" onClick={() => {
+          unpublishPost({
+            variables: { postId: id }
+          })
+        }}>
           unpublish
         </p>
       )}
