@@ -6,7 +6,7 @@ export const getUserFromToken = (token: string) => {
 		return JWT.verify(token, JWT_SIGNATURE) as {
 			userId: number
 		}
-	} catch(errror) {
+	} catch(error) {
 		return null
 	}
 }
