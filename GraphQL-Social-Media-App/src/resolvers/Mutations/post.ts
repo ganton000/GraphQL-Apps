@@ -219,7 +219,7 @@ export const postResolvers = {
 				})
 			}
 		},
-		postunPublish: async (
+		postUnpublish: async (
 			_: any,
 			{ postId }: { postId: string },
 			{ prisma, userInfo }: Context
